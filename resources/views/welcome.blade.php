@@ -1,25 +1,48 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+@section('content')
 
+<main>
+    <div class="body">
+        <div class="list">
+            @auth
+            <div class="mb-5"></div>
+            <form action="{{ route('posts.create') }}" class="w-150">
+                <input class="button:hover button" type="submit" value="Создать">
+            </form>
+            @endauth
+            <div class="pxl">
+                @forelse($post->all() as $posts)
+                <div class="container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Str::limit($posts->name, 40) }}</h5>
+                            <p class="card-text">{{ Str::limit($posts->body, 50) }}</p>
+                            <p class="card-text"><small class="text-muted">Опубликовано: {{ $posts->created_at }}</small></p>
+                            <p>
+                                @csrf
+                                @auth
+                                @if(!$posts->likes->contains('user_id', auth()->user()->id))
+                                @component('components.like', ['postId' => $posts->id])@endcomponent
+                                @else
+                                @component('components.unlike', ['postId' => $posts->id])@endcomponent
+                                @endif
+                                @endauth
+                            </p>
+                            <a href="{{ route('posts.show', $posts->id) }}" style="float: right;" class="btn btn-success">Читать далее</a>
+                        </div>
+                    </div>
+                </div>
 
-<div class="container-lg">
-    @foreach($post->all() as $posts)
-    <div class="container-lg">
-        <div class="mb-3">
-            <figure>
-                <blockquote class="blockquote">
-                    <h2>{{ $posts->name }}</h2>
-                </blockquote>
-                <figcaption class="blockquote-footer text-dark">
-                    {{ $posts->body }}
-                </figcaption>
-            </figure>
+                @empty
+                <div class="text-center text fs-3" style="align: center">Нет постов</div>
+                @endforelse
+                <div class="d-flex justify-content-center">
+                    {{ $post->links('pagination::bootstrap-4') }}
+                </div>
+            </div>
         </div>
     </div>
-    @endforeach
-</div>
+</main>
+
+@endsection

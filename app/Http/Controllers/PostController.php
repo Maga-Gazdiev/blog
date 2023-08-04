@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -11,7 +12,7 @@ class PostController extends Controller
    public function index()
    {
       $post = Post::paginate(10);
-      return view('post.index', compact("post"));
+      return view('welcome', compact("post"));
    }
 
    public function create()
@@ -21,16 +22,22 @@ class PostController extends Controller
 
    public function store(Request $request)
    {
+      $this->validate($request, [
+         'body' => 'required|min:70'
+      ]);
       $post = new Post();
+      $user = auth()->user();
       $post->name = $request->name;
       $post->body = $request->body;
+      $post->user_id = $user->id;
       $post->save();
-      return view('post.index', compact("post"));
+      return view('welcome', compact("post"));
    }
 
-   public function show(Request $request)
+   public function show($id)
    {
-      dd('show');
+      $post = Post::findOrFail($id);
+      return view('post.show', compact('post'));
    }
 
    public function edit($id)
@@ -41,6 +48,9 @@ class PostController extends Controller
 
    public function update(Request $request, string $id)
    {
+      $this->validate($request, [
+         'body' => 'required|min:70'
+      ]);
       $post = Post::findOrFail($id);
       $post->name = $request->name;
       $post->body = $request->body;

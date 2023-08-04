@@ -1,80 +1,60 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/51006eaecd.js" crossorigin="anonymous"></script>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Posts</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
-<style>
-    .text {
-        font-family: Verdana, Helvetica, Arial, sans-serif;
-        color: black;
-        text-decoration: none;
-    }
-</style>
-
-<body class="container-lg">
+<body class="container-fluid">
     <header class="flex-shrink-0">
-        <div>
-            <div id="app">
-                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-                    <div class="navbar navbar-expand-md px-5">
-                        <a class="navbar-brand flex items-center" href="{{ route('posts') }}">
-                            <a class="text fs-2">Главная</a>
-                        </a>
+        <div id="app">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <div class="container-lg center">
+                   
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <div style="width: 265px;"></div>
-                        <nav>
-                            <div class="dropdown">
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                            </div>
-                        </nav>
-                        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
-                            <ul class="flex flex-col font-medium lg:flex-row lg:space-x-8 lg:mt-0 navbar-nav mr-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link"></a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="text block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0 nav-link">
-                                        Новости</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="text block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0 nav-link">
-                                        Расписание</a>
-                                </li>
-                                <li class="nav-item active" >
-                                    <a class="text block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0 nav-link">
-                                        Преподаватели </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div style="width: 265px;"></div>
-                        @guest()
-                        <div class="flex items-center lg:order-2">
-                            <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded">
-                                <button type="button" class="btn btn-outline-dark">Вход</button>
-                            </a>
-                            <a href="{{ route('register') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded ml-2">
-                                <button type="button" class="btn btn-outline-dark">Регистрация</button>
-                            </a>
-                        </div>
-                        @endguest
-                        @auth()
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" class="btn btn-outline-dark">Выйти</button>
-                        </form>
-                        @endauth
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 active" aria-current="page" href="{{ route('posts') }}">Главная</a>
+                            </li>
+                            @auth()
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="{{ route('user.posts.like') }}">Нравится</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="{{ route('user.posts') }}">Мои посты</a>
+                            </li>
+                            @endauth
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="{{ route('posts') }}">Все посты</a>
+                            </li>
+                           
+                            <li class="nav-item" style="width: 50px;">
+                                <a class="nav-link mx-2"></a>
+                            </li>
+                            @guest()
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">Вход или Регистрация</a>
+                            </li>
+                            @endguest
+                            <li class="nav-item">
+                                @auth()
+                                <a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
+                                @endauth
+                            </li>
+                        </ul>
                     </div>
-
-                </nav>
-            </div>
-
+                </div>
+            </nav>
         </div>
     </header>
     @yield('content')

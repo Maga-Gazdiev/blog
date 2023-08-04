@@ -2,36 +2,49 @@
 
 @section('content')
 
-<div class="container-lg">
-    <main class="container py-4 shadow">
-        <div class="container py-4 px-5">
+<main>
+    <div class="body">
+        <div class="list">
+            <input type="checkbox" id="chk" aria-hidden="true">
+            <form action="{{ route('posts.create') }}" accept-charset="UTF-8" class="button">
+                <button class="button">Создать</button>
+            </form>
+            @foreach($post->all() as $posts)
             <div class="container-lg">
-                <form action="{{ route('posts.create') }}" accept-charset="UTF-8" class="w-50">
-                    <input class="btn btn-outline-dark text" type="submit" value="Создать">
-                </form>
-                @foreach($post->all() as $posts)
-                <div class="container-lg">
-                    <div class="mb-3">
-                        <figure>
-                            <blockquote class="blockquote">
+                <div class="mb-3">
+                    <figure>
+                        <blockquote class="blockquote">
+                            <div class="d-flex justify-content-between">
                                 <h2 class="text">{{ $posts->name }}</h2>
-                                <form action="{{ route('posts.destroy', $posts->id) }}" style="float: right" method="POST">
+                                <form method="post">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="color:#8B0000" class="btn btn-red text">Удалить</button>
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        @auth
+                                        <i class="fa-solid fa-heart"></i>
+                                        @endauth
+                                    </button>
                                 </form>
-                                <a style="float: right; color:#0000FF" type="button" href="{{ route('posts.edit', $posts->id) }}" class="btn btn-red text">Изменить</a>
-                            </blockquote>
-                            <figcaption class="blockquote-footer text-dark text">
-                                {{ $posts->body }}
-                            </figcaption>
-                        </figure>
-                    </div>
+                            </div>
+
+                            @auth()
+                            <form action="{{ route('posts.destroy', $posts->id) }}" style="float: right" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="color:#8B0000" class="btn btn-red text">Удалить</button>
+                            </form>
+                            <a style="float: right" type="button" href="{{ route('posts.edit', $posts->id) }}" class="btn btn-red text">Изменить</a>
+                            @endauth
+                        </blockquote>
+                        <figcaption class="blockquote-footer text-dark text">
+                            {{ $posts->body }}
+                        </figcaption>
+
+                    </figure>
                 </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
-    </main>
-</div>
+    </div>
+</main>
 
 @endsection

@@ -1,0 +1,291 @@
+.text {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  color: black;
+  text-decoration: none;
+}
+
+/* header */
+@media screen and (min-width:777px) {
+  .nav-link {
+    padding: 18px 0;
+    min-width: 80px;
+  }
+
+  .navbar {
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+  }
+}
+
+/* header */
+
+
+/* register */
+.body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Jost', sans-serif;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  border-radius: 10px;
+  padding-top: 20px;
+}
+
+.main {
+  width: 350px;
+  height: 500px;
+  background: red;
+  overflow: hidden;
+  background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+}
+
+.pxl {
+  padding: 20;
+  margin: 20;
+  margin-left: 150px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.pxls {
+  padding: 20;
+  margin: 50;
+  margin-left: 30px;
+}
+
+#chk {
+  display: none;
+}
+
+.signup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  color: #fff;
+  font-size: 2.3em;
+  justify-content: center;
+  display: flex;
+  margin: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+input {
+  width: 60%;
+  height: 20px;
+  background: #e0dede;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.list {
+  width: 1200px;
+  height: auto;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+}
+
+.button {
+  width: 60%;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 20px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  transition: .2s ease-in;
+  cursor: pointer;
+}
+
+.otherbutton {
+  width: 80px;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  color: #fff;
+  background: #573b8a;
+  font-weight: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button:hover {
+  background: #6d44b8;
+}
+
+.login {
+  height: 460px;
+  background: #eee;
+  border-radius: 60% / 10%;
+  transform: translateY(-180px);
+  transition: .8s ease-in-out;
+}
+
+.login label {
+  color: #573b8a;
+  transform: scale(.6);
+}
+
+#chk:checked~.login {
+  transform: translateY(-500px);
+}
+
+#chk:checked~.login label {
+  transform: scale(1);
+}
+
+#chk:checked~.signup label {
+  transform: scale(.6);
+}
+
+/* register */
+
+
+/* посты */
+
+
+
+
+/* формы для текста */
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+}
+
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #000000;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown~.form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #0f0f0f;
+}
+
+.form__field:focus {
+  ~.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 700;
+  }
+
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e, #38ef7d);
+  border-image-slice: 1;
+}
+
+.form__field {
+
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}
+
+/* формы для текста */
+
+/* comment */
+
+.media-body .author {
+  display: inline-block;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 700;
+}
+.media-body .metadata {
+  display: inline-block;
+  margin-left: .5rem;
+  color: #777;
+  font-size: .8125rem;
+}
+.footer-comment {
+  color: #777;
+}
+.vote.plus:hover {
+  color: green;
+}
+.vote.minus:hover {
+  color: red;
+}
+.vote {
+  cursor: pointer;
+}
+.comment-reply a {
+  color: #777;
+}
+.comment-reply a:hover, .comment-reply a:focus {
+  color: #000;
+  text-decoration: none;
+}
+.devide {
+  padding: 0px 4px;
+  font-size: 0.9em;
+}
+.media-text {
+  margin-bottom: 0.25rem;
+}
+.title-comments {
+  font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 1.5rem;
+  color: rgba(0, 0, 0, .87);
+  margin-bottom: 1rem;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid rgba(34, 36, 38, .15);
+}
