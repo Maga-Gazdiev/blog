@@ -12,6 +12,8 @@
             </form>
             @endauth
             <div class="pxl">
+                <!-- <a href="#name_of_target">Link Text</a> -->
+               <!-- <a name="name_of_target">Content</a> --> 
                 @forelse($post->all() as $posts)
                 <div class="container">
                     <div class="card">

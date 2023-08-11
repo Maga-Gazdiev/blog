@@ -19,12 +19,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [PostController::class, 'index'])->name('posts');
 
 Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/', [OfficeController::class, 'index'])->name('user.index');
     Route::get('/posts/like', [OfficeController::class, 'postsLike'])->name('user.posts.like');
     Route::get('/posts', [OfficeController::class, 'posts'])->name('user.posts');
+    Route::get('/likedComment', [OfficeController::class, 'likedComment'])->name('user.likedComment');
+    Route::get('/comment', [OfficeController::class, 'comment'])->name('user.comment');
 });
 
 Route::prefix('posts')->group(function () {
@@ -36,7 +39,13 @@ Route::prefix('posts')->group(function () {
     Route::get('/{post}', [PostController::class, 'show'])->name('posts.show');
 });
 
-Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
+Route::prefix('comments')->group(function () {
+    Route::post('/', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'index'])->name('register');
@@ -46,10 +55,12 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [LoginController::class, 'store'])->name('login.store');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('/like/{post}', [LikeController::class, 'like'])->name('like');
+    Route::post('/unlike/{post}', [LikeController::class, 'unlike'])->name('unlike');
+    Route::post('/like/comment/{post}', [LikeController::class, 'likeComment'])->name('like.comment');
+    Route::post('/unlike/comment/{post}', [LikeController::class, 'unlikeComment'])->name('unlike.comment');
+});
 
-Route::post('/like/{post}', [LikeController::class, 'like'])->name('like')->middleware('auth');
-Route::post('/unlike/{post}', [LikeController::class, 'unlike'])->name('unlike')->middleware('auth');
-Route::post('/like/comment/{post}', [LikeController::class, 'likeComment'])->name('likeComment')->middleware('auth');
-Route::post('/unlike/comment/{post}', [LikeController::class, 'unlikeComment'])->name('unlikeComment')->middleware('auth');
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');

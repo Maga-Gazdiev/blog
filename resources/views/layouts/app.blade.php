@@ -16,7 +16,7 @@
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <div class="container-lg center">
-                   
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -33,24 +33,33 @@
                             <li class="nav-item">
                                 <a class="nav-link mx-2" href="{{ route('user.posts') }}">Мои посты</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="{{ route('user.comment') }}">Мои комментарии</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="{{ route('user.likedComment') }}">Лайкнутые комментарии</a>
+                            </li>
                             @endauth
                             <li class="nav-item">
                                 <a class="nav-link mx-2" href="{{ route('posts') }}">Все посты</a>
                             </li>
-                           
+
                             <li class="nav-item" style="width: 50px;">
                                 <a class="nav-link mx-2"></a>
                             </li>
                             @guest()
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Вход или Регистрация</a>
+                                <a class="nav-link" href="{{ route('login') }}">Вход</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                             </li>
                             @endguest
+                            @auth()
                             <li class="nav-item">
-                                @auth()
                                 <a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
-                                @endauth
                             </li>
+                            @endauth
                         </ul>
                     </div>
                 </div>

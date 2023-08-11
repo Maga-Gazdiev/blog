@@ -23,6 +23,7 @@ class PostController extends Controller
    public function store(Request $request)
    {
       $this->validate($request, [
+         'name' => 'required|min:5',
          'body' => 'required|min:70'
       ]);
       $post = new Post();
@@ -31,7 +32,8 @@ class PostController extends Controller
       $post->body = $request->body;
       $post->user_id = $user->id;
       $post->save();
-      return view('welcome', compact("post"));
+
+      return redirect()->route('posts');
    }
 
    public function show($id)
@@ -49,6 +51,7 @@ class PostController extends Controller
    public function update(Request $request, string $id)
    {
       $this->validate($request, [
+         'name' => 'min:6',
          'body' => 'required|min:70'
       ]);
       $post = Post::findOrFail($id);

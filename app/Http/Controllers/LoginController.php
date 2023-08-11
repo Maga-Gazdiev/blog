@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,8 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return view('post.index');
+        $post = Post::paginate(10);
+        return view('post.index', compact('post'));
     }
 
     public function logout(Request $request)
@@ -40,6 +42,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return view('post.index');
+        return redirect()->route('posts');
     }
 }
