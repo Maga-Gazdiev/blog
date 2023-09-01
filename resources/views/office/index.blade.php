@@ -1,42 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-  main {
-    background-color: #B0C4DE;
-  }
-</style>
 
 <main>
-  <div class="body">
-    <div class="list">
-      <div class="container-lg">
-        <div class="mb-2"></div>
-        <h1 class="text py-2 px-4 px-4">Личный кабинет</h1>
-        
-          <p class="px-4 px-5 fs-4">Ник:<a class="text px-3">{{$user->name}}</a></p>
-          <p class="px-4 px-5 fs-4">Email:<a class="text px-3">{{$user->email}}</a></p>
-    
-          <a class="px-4 px-5 fs-4" href="{{ route('user.posts.like') }}" style="text-decoration: none">Все лайкнутые посты</a>
-          <p></p>
-          <a class="px-4 px-5 fs-4" href="{{ route('user.posts') }}" style="text-decoration: none">Все мои посты</a>
-        
+    <div class="body">
+        <div class="list">
+            <main>
+                <div class="container-lg my-5">
+                    <div class="mb-3"></div>
+                    <h1 class="text-center">Личный кабинет</h1>
+                    <div class="mb-4"></div>
 
-        @auth()
-        <div class="flex items-center lg:order-2">
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <div class='py-3'>
-            <a href="{{ route('logout') }}" style="text-decoration: none" class="button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <button type="button" class="button">Выход</button>
-            </a>
-          </div>
+                    <div class="px-4 px-md-5 fs-4">
+                        <p class="mb-2">Ник: <span class="text-primary">{{ $user->name }}</span></p>
+                        <p class="mb-2">Email: <span class="text-primary">{{ $user->email }}</span></p>
+                        <a class="text-decoration-none text-primary d-block mb-2" href="{{ route('user.posts.like') }}">Все лайкнутые посты</a>
+                        <a class="text-decoration-none text-primary d-block mb-2" href="{{ route('user.posts') }}">Все мои посты</a>
+                        <a class="text-decoration-none text-primary d-block mb-2" href="{{ route('other') }}">Другие возможности</a>
+                        <a class="text-decoration-none text-primary d-block mb-2" href="{{ route('user.comment') }}">Мои комментарии</a>
+                        <a class="text-decoration-none text-primary d-block mb-4" href="{{ route('user.likedComment') }}">Лайкнутые комментарии</a>
+                    </div>
+
+                    @auth
+                    <div class="d-grid gap-2 col-12 col-md-6 mx-start px-5">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" id="liveToastBtn" class="btn btn-primary">Выход</button>
+                        </form>
+                    </div>
+                    @endauth
+                    <div class="mb-3"></div>
+                    <div class="px-4 px-md-5 fs-4">
+                        <form action="{{ route('other.ipify') }}" method="get" class="d-md-flex align-items-center" style="padding-right: 50">
+                            <button type="submit" class="btn btn-primary">Нажмите для того чтобы узнать ваш IP</button>
+                        </form>
+                        @isset($ip)
+                        <h1>Ваш ip: {{ $ip }}</h1>
+                        @endisset
+                    </div>
+                </div>
+            </main>
         </div>
-        @endauth
-      </div>
     </div>
-  </div>
 </main>
 
 @endsection

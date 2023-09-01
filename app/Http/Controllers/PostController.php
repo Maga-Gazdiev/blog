@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Telegram;
 use App\Models\Post;
-use App\Models\User;
-use Illuminate\Contracts\Validation\Validator;
+use App\Events\PostStore;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
    public function index()
    {
-      $post = Post::paginate(10);
-      return view('welcome', compact("post"));
+      $sort = request()->input('sort', 'new');
+      $keyword = request()->input('keyword', '');
+
+      $validatedData = request()->validate([
+         'sort' => ['nullable', 'in:new,old'],
+         'keyword' => 'nullable|string|max:255',
+     ]);
+     
+      $query = Post::orderBy('created_at', $sort === 'old' ? 'asc' : 'desc');
+   
+      if (!empty($keyword)) {
+         $query->where('name', 'like', "%$keyword%");
+      }
+
+      $post = $query->paginate(12);
+      return view('welcome', compact('post', 'keyword'));
    }
 
    public function create()
@@ -23,8 +37,8 @@ class PostController extends Controller
    public function store(Request $request)
    {
       $this->validate($request, [
-         'name' => 'required|min:5',
-         'body' => 'required|min:70'
+         'name' => 'required|min:6|max:255',
+         'body' => 'required|min:150'
       ]);
       $post = new Post();
       $user = auth()->user();
@@ -32,6 +46,10 @@ class PostController extends Controller
       $post->body = $request->body;
       $post->user_id = $user->id;
       $post->save();
+
+
+      //$telegram->sendMessage("1655411850", "Пользователь {{ Auth::user()->name }} создал пост");
+      event(new PostStore());
 
       return redirect()->route('posts');
    }
@@ -51,7 +69,7 @@ class PostController extends Controller
    public function update(Request $request, string $id)
    {
       $this->validate($request, [
-         'name' => 'min:6',
+         'name' => 'min:6|max:255',
          'body' => 'required|min:70'
       ]);
       $post = Post::findOrFail($id);
@@ -66,6 +84,6 @@ class PostController extends Controller
    {
       $post = Post::findOrFail($id);
       $post->delete();
-      return redirect()->route('posts');
+      return redirect()->route('user.posts');
    }
 }

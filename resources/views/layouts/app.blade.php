@@ -12,42 +12,25 @@
 </head>
 
 <body class="container-fluid">
+    <div class="mb-3"></div>
     <header class="flex-shrink-0">
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                <div class="container-lg center">
+                <div class="container-lg">
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav mx-auto">
+                        <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link mx-2 active" aria-current="page" href="{{ route('posts') }}">Главная</a>
+                                <a class="nav-link mx-2" href="{{ route('posts') }}">Главная</a>
                             </li>
-                            @auth()
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="{{ route('user.posts.like') }}">Нравится</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="{{ route('user.posts') }}">Мои посты</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="{{ route('user.comment') }}">Мои комментарии</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="{{ route('user.likedComment') }}">Лайкнутые комментарии</a>
-                            </li>
-                            @endauth
-                            <li class="nav-item">
-                                <a class="nav-link mx-2" href="{{ route('posts') }}">Все посты</a>
-                            </li>
-
-                            <li class="nav-item" style="width: 50px;">
+                            @guest
+                            <li class="nav-item" style="width: 800px;">
                                 <a class="nav-link mx-2"></a>
                             </li>
-                            @guest()
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Вход</a>
                             </li>
@@ -55,7 +38,11 @@
                                 <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                             </li>
                             @endguest
-                            @auth()
+                            
+                            @auth
+                            <li class="nav-item" style="width: 800px;">
+                                <a class="nav-link mx-2"></a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
                             </li>

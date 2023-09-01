@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Auth;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Like>
  */
-class PostFactory extends Factory
+class LikeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +17,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'body' => $this->faker->text(600),
-            'user_id' => 14
+            //
         ];
     }
 }

@@ -36,7 +36,7 @@
                             @endauth
                         </blockquote>
                         <figcaption class="blockquote-footer text-dark text">
-                            {{ $posts->body }}
+                            {{ Str::limit($posts->body, 60) }}
                         </figcaption>
 
                     </figure>

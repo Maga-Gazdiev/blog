@@ -1,9 +1,11 @@
 <?php
 
+use App\Helpers\Telegram;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -62,5 +64,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/unlike/comment/{post}', [LikeController::class, 'unlikeComment'])->name('unlike.comment');
 });
 
-
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
+Route::prefix('other')->group(function () {
+    Route::get('/', [OtherController::class, 'index'])->name('other');
+    Route::get('/bored', [OtherController::class, 'bored'])->name('other.bored');
+    Route::get('/ipify', [OtherController::class, 'ipify'])->name('other.ipify');
+    Route::post('/predict', [OtherController::class, 'national'])->name('other.national');
+    Route::post('/ipinfo', [OtherController::class, 'ipinfo'])->name('other.ipinfo');
+});

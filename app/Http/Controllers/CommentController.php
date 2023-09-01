@@ -16,7 +16,7 @@ class CommentController extends Controller
             'body' => 'required|max:255',
             'user_id' => 'exists:users,id',
         ]);
-
+        
         $user = Auth::user();
 
         Comment::create([

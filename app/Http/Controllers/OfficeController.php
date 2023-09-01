@@ -21,7 +21,7 @@ class OfficeController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
 
-        $likedPosts = $user->likedPosts()->orderBy('likes.created_at', 'desc')->get();
+        $likedPosts = $user->likedPosts()->orderBy('likes.created_at', 'desc')->paginate(12);
 
         return view('office.posts', compact('likedPosts'));
     }
@@ -29,7 +29,8 @@ class OfficeController extends Controller
     public function posts()
     {
         $user = auth()->user();
-        return view('office.allPosts', compact('user'));
+        $post = $user->posts()->orderBy('created_at', 'desc')->paginate(12);
+        return view('office.allPosts', compact('post'));
     }
     /////////////////
     public function comment()
@@ -37,7 +38,7 @@ class OfficeController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
 
-        $comments = $user->comments;
+        $comments = $user->comments()->orderBy('created_at', 'desc')->paginate(12);
 
         return view('office.comment', compact("comments"));
     }
@@ -46,7 +47,7 @@ class OfficeController extends Controller
         $user = auth()->user();
         $user = User::find($user->id);
         
-        $comments = $user->likedComments()->orderBy('likes.created_at', 'desc')->get();
+        $comments = $user->likedComments()->orderBy('likes.created_at', 'desc')->paginate(12);
 
         return view('office.likedComment', compact("comments"));
     }

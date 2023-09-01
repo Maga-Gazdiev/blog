@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h1 class="display-5">{{ $post->name }}</h1>
-                            <p class="lead">{{ $post->body }}</p>
+                            <p class="lead" id="MyComment">{{ $post->body }}</p>
                         </div>
                     </div>
                 </div>

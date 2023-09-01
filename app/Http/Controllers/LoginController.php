@@ -30,8 +30,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        $post = Post::paginate(10);
-        return view('post.index', compact('post'));
+        return redirect()->route('posts');
     }
 
     public function logout(Request $request)

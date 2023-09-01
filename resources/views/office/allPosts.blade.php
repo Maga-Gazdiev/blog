@@ -2,57 +2,70 @@
 
 @section('content')
 
-<main>
-    <div class="body">
-        <div class="list">
-            <div class="mb-3"></div>
-            <div class="fs-2 text-center text">Все посты пользователя</div>
-            <div class="pxl">
-                @forelse($user->posts as $posts)
-                <div class="container">
-                    <div class="card">
+
+<div class="body">
+    <div class="list">
+
+        <div class="container mt-5">
+            <div class="fs-1 text-center">Все посты пользователя</div>
+            <div class="mb-5"></div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-2">
+                @forelse ($post->all() as $posts)
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="bg-image hover-overlay shadow-1-strong ripple rounded-5">
+                            <img src='https://i.ibb.co/17hXpC6/image.png' alt="Тут была картина поста" width="300" class="img-fluid photo" />
+                        </div>
+                        <div class="mb-2 "></div>
+                        <div>
+                            <p class="card-text px-3"><small class="text-muted"> Опубликованно: {{ $posts->created_at->toDateString() }}</small></p>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ Str::limit($posts->name, 40) }}</h5>
-                            <p class="card-text">{{ Str::limit($posts->body, 50) }}</p>
-                            <p class="card-text"><small class="text-muted">Опубликовано: {{ $posts->created_at }}</small></p>
-                            <p>
-                                @csrf
-                                @auth
-                                @if(!$posts->likes->contains('user_id', auth()->user()->id))
-                                @component('components.like', ['postId' => $posts->id])@endcomponent
-                                @else
-                                @component('components.unlike', ['postId' => $posts->id])@endcomponent
-                                @endif
-                                @endauth
-                            </p>
-                            <div class="row">
-                                <div class="col-3">
+                            <h5 class="card-title"><a href="{{ route('posts.show', $posts->id) }}" class="text-decoration-none">{{ Str::limit($posts->name, 23) }}</a></h5>
+                            <p class="card-text">{{ Str::limit($posts->body, 30) }}</p>
+                            <div class="row mb-3">
+                                
+                                <div class="col-2">
                                     <form action="{{ route('posts.destroy', $posts->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
                                     <form action="{{ route('posts.edit', $posts->id) }}">
-                                        <button type="submit" class="btn btn-primary">Изменить</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa-brands fa-stack-exchange"></i></button>
                                     </form>
                                 </div>
-                                <div class="col-5">
-                                    <a href="{{ route('posts.show', $posts->id) }}" class="btn btn-success">Читать далее</a>
+                                <div class="col-6">
+                                    <a class="text-info">
+                                        @csrf
+                                        @auth
+                                        @if(!$posts->likes->contains('user_id', auth()->user()->id))
+                                        @component('components.like', ['postId' => $posts->id])@endcomponent
+                                        @else
+                                        @component('components.unlike', ['postId' => $posts->id])@endcomponent
+                                        @endif
+                                        @endauth
+                                    </a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 @empty
-                <div class="text fs-3" style="align: center">У пользователя нет постов</div>
+                <div class="col text-center fs-3 mt-5">
+                    Нет постов
+                </div>
                 @endforelse
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $post->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
 @endsection

@@ -14,8 +14,10 @@ class LikeController extends Controller
             'user_id' => auth()->user()->id,
             'post_id' => $postId,
         ]);
-
-        return redirect()->back()->with('message', 'Редирект выполнен успешно.'); 
+        //$items = Post::findOrFail($postId);
+        //dd($items->likes->count());
+        
+        return redirect()->back()->with('message', 'Редирект выполнен успешно.');
     }
 
     public function unlike($postId)
@@ -32,7 +34,7 @@ class LikeController extends Controller
             'comment_id' => $postId,
         ]);
 
-        return redirect()->back()->with('message', 'Редирект выполнен успешно.'); 
+        return redirect()->back()->with('message', 'Редирект выполнен успешно.');
     }
 
     public function unlikeComment($postId)
