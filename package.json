@@ -1,19 +1,10 @@
 {
     "private": true,
     "type": "module",
-    "packageManager": "pnpm@7.5.1",
     "scripts": {
         "dev": "vite",
-        "build": "vite build-output-dir"
+        "build": "vite build"
     },
-    "vercel": {
-        "builds": [
-          {
-            "src": "build-output-dir",
-            "use": "@vercel/static"
-          }
-        ]
-      },
     "devDependencies": {
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.5",
