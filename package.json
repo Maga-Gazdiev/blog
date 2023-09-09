@@ -3,7 +3,16 @@
     "type": "module",
     "packageManager": "pnpm@7.5.1",
     "scripts": {
-        "build": "laravel build --output public"
+        "dev": "vite",
+        "build": "vite build-output-dir"
+    },
+    "vercel": {
+        "builds": [
+          {
+            "src": "build-output-dir",
+            "use": "@vercel/static"
+          }
+        ]
       },
     "devDependencies": {
         "axios": "^1.1.2",
