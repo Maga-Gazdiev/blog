@@ -47,9 +47,7 @@ class PostController extends Controller
       $post->user_id = $user->id;
       $post->save();
 
-
-      //$telegram->sendMessage("1655411850", "Пользователь {{ Auth::user()->name }} создал пост");
-      event(new PostStore());
+      event(new PostStore($post));
 
       return redirect()->route('posts');
    }

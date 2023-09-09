@@ -8,6 +8,7 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -66,7 +67,7 @@ Route::middleware('auth')->group(function () {
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-
+Route::get('/webhook', [WebhookController::class, 'index'])->name('webhook');
 
 Route::prefix('other')->group(function () {
     Route::get('/', [OtherController::class, 'index'])->name('other');

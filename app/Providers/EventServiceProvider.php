@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Listeners\TelegramSubscriber;
+use App\Listeners\ProcessPostStore;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,10 +18,13 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        PostStore::class => [
+            ProcessPostStore::class,
+        ],
     ];
 
     protected $subscribe = [
-        TelegramSubscriber::class
+        ProcessPostStore::class
     ];
 
     /**

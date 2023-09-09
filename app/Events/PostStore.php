@@ -14,4 +14,10 @@ class PostStore
      * @return void
      */
 
+     public $post;
+
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
 }
