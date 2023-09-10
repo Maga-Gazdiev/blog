@@ -1,0 +1,9 @@
+{
+    "pipeline": {
+        "generate": {
+            "outputs": [
+                "dist/**"
+            ]
+        }
+    }
+}
