@@ -4,11 +4,13 @@ use App\Helpers\Telegram;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WebhookController;
+use App\Models\Message;
 use Illuminate\Support\Facades\Route;
 
 
@@ -76,3 +78,6 @@ Route::prefix('other')->group(function () {
     Route::post('/predict', [OtherController::class, 'national'])->name('other.national');
     Route::post('/ipinfo', [OtherController::class, 'ipinfo'])->name('other.ipinfo');
 });
+
+Route::get('/chat', [MessageController::class, 'index'])->name('chat.index');
+Route::post('/chat/send/{user}', [MessageController::class, 'sendMessage'])->name('chat.send');
