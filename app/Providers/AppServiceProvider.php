@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\Telegram;
+use App\Services\ImageService;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\ServiceProvider;
 

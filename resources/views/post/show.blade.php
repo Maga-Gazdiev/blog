@@ -4,22 +4,16 @@
 @section('content')
 
 <main>
-    <div class="body">
-        <div class="list">
-            <div class="container-lg px-5">
-                <div class="container -5">
-                    <div class="mb-5"></div>
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h1 class="display-5">{{ $post->name }}</h1>
-                            <p class="lead" id="MyComment">{{ $post->body }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <x-comment-component :post="$post" />
+    <div class="container-lg px-5">
+        <div class="mb-5"></div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="display-4">{{ $post->name }}</h1>
+                <p class="lead">{!! $post->body !!}</p>
             </div>
         </div>
+
+        <x-comment-component :post="$post" />
     </div>
 </main>
 

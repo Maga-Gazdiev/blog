@@ -30,6 +30,7 @@ class OfficeController extends Controller
     {
         $user = auth()->user();
         $post = $user->posts()->orderBy('created_at', 'desc')->paginate(12);
+
         return view('office.allPosts', compact('post'));
     }
     /////////////////

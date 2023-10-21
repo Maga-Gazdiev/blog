@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "laravel-echo": "^1.15.3",
+    "pusher-js": "^8.3.0"
+  },
+  "dependencies": {
+    "owl.carousel": "^2.3.4",
+    "slick-carousel": "^1.8.1"
+  },
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production"
+}
+
+}

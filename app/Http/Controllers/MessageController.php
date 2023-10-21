@@ -9,22 +9,22 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function index(Request $request)
+    public function show(Request $request, $id)
     {
-        $recipientId = $request->input('recipient_id');
-        $user = User::findOrFail($recipientId);
+        $user = User::findOrFail($id);
         if ($user->id !== Auth::id() && User::where('id', $user->id)->exists()) {
             $messages = Message::whereIn('sender_id', [Auth::id(), $user->id])
                 ->whereIn('recipient_id', [Auth::id(), $user->id])
                 ->orderBy('created_at', 'asc')
                 ->get();
-            return view('office.message', compact('messages', 'user'));
+  
+            return view('message.show', compact('messages', 'user'));
         } else {
             return redirect()->route('posts');
         }
     }
 
-    public function sendMessage(Request $request, User $user)
+    public function store(Request $request, User $user)
     {
         // Валидация данных из формы
         $validatedData = $request->validate([
@@ -39,3 +39,4 @@ class MessageController extends Controller
         return redirect()->back();
     }
 }
+

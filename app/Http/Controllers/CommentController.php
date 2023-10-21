@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\User;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,13 +18,16 @@ class CommentController extends Controller
             'body' => 'required|max:255',
             'user_id' => 'exists:users,id',
         ]);
-        
+
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+
         $user = Auth::user();
 
         Comment::create([
             'post_id' => $request->post_id,
             'user_id' => $user->id,
-            'body' => $request->body,
+            'body' => $purifier->purify($request['body']),
         ]);
 
         return redirect()->route('posts.show', $request->post_id);
@@ -42,11 +47,14 @@ class CommentController extends Controller
             'user_id' => 'exists:users,id',
         ]);
 
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+
         $user = Auth::user();
         $comment->update([
             'post_id' => $request->post_id,
             'user_id' => $user->id,
-            'body' => $request->body,
+            'body' => $purifier->purify($request['body']),
         ]);
 
         return redirect()->route('posts.show', $request->post_id);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class RegisterController extends Controller
             $request->validate([
                 'email' => 'required|email|ends_with:gmail.com,yandex.ru,mail.ru,yandex.com,mail.com,gmail.ru',
                 'name' => 'required|string|max:255',
-                'password' => 'min:6',
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
 
             $user = User::create([
@@ -30,7 +31,7 @@ class RegisterController extends Controller
                 'password' => $request->password,
             ]);
 
-
+            event(new Registered($user));
             Auth::login($user);
             
             return redirect()->route('posts');
@@ -39,3 +40,4 @@ class RegisterController extends Controller
         }
     }
 }
+

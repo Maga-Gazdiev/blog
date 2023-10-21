@@ -35,13 +35,6 @@ class Handler extends ExceptionHandler
     
     public function report(Throwable $e)
     {
-        $data = [
-            'description' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-        ];
-       
-        $this->telegram->sendMessage(env('REPORT_TELEGRAM_ID'), (string)view('report', $data));
     }
     public function register(): void
     {

@@ -3,54 +3,57 @@
 @section('content')
 
 <main>
-    <div class="body">
-        <section class="vh-100 bg-image">
-            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-                <div class="container h-100">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">Создать аккаунт</h2>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg rounded-3">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-5">Создать аккаунт</h2>
 
-                                <form action="{{ route('register.store') }}" method="POST">
-                                    @csrf
-                                    @method('POST')
+                        <form action="{{ route('register.store') }}" method="POST">
+                            @csrf
+                            @method('POST')
 
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Имя</label>
-                                        <input type="text" name="name" placeholder="User name" id="form3Example1cg" class="form-control form-control-lg" />
-                                        @error('name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example3cg">Email</label>
-                                        <input type="email" name="email" for="exampleInputEmail1" placeholder="Email" id="form3Example3cg" aria-describedby="emailHelp" class="form-control form-control-lg" />
-                                        @error('email')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cg">Пароль</label>
-                                        <input type="password" name="password" placeholder="Password" id="form3Example4cg" class="form-control form-control-lg" />
-                                        @error('password')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Зарегистрироваться</button>
-                                    </div>
-                                    <p class="text-center text-muted mt-5 mb-0">Уже есть аккаунт? <a href="login" class="fw-bold text-body"><u>Войдите в него</u></a></p>
-                                </form>
+                            <div class="mb-4">
+                                <label for="name" class="form-label">Имя</label>
+                                <input type="text" name="name" id="name" placeholder="User name" class="form-control form-control-lg @error('name') is-invalid @enderror" value="{{ old('name') }}" required autofocus />
+                                @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                        </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" placeholder="Email" class="form-control form-control-lg @error('email') is-invalid @enderror" value="{{ old('email') }}" required />
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Пароль</label>
+                                <input type="password" name="password" id="password" placeholder="Пароль" class="form-control form-control-lg @error('password') is-invalid @enderror" required />
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password-confirm" class="form-label">Подтверждение пароля</label>
+                                <input id="password-confirm" name="password_confirmation" placeholder="Подтвердить пароль" type="password" class="form-control form-control-lg" required />
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">Зарегистрироваться</button>
+                            </div>
+                        </form>
+
+                        <p class="text-center text-muted mt-4">Уже есть аккаунт? <a href="{{ route('login') }}" class="text-body fw-bold"><u>Войдите в него</u></a></p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </main>
+
 @endsection

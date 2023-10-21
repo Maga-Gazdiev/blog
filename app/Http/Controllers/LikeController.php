@@ -14,8 +14,6 @@ class LikeController extends Controller
             'user_id' => auth()->user()->id,
             'post_id' => $postId,
         ]);
-        //$items = Post::findOrFail($postId);
-        //dd($items->likes->count());
         
         return redirect()->back()->with('message', 'Редирект выполнен успешно.');
     }

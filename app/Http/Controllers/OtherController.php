@@ -34,17 +34,22 @@ class OtherController extends Controller
         $response = Http::get('https://api.ipify.org?format=json');
         $ip = $response->json();
         $user = Auth::user();
-        
+
         return view('office.index', ['ip' => $ip['ip'], 'user' => $user]);
     }
     public function ipinfo()
     {
         $ip = request('ip');
 
-        $response = Http::get("http://ipinfo.io/$ip/geo");
-        $data = $response->json();
+        // Проверка на действительный IP-адрес
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            $response = Http::get("http://ipinfo.io/$ip/geo");
+            $data = $response->json();
+        } else {
+            // Если IP-адрес недействительный, вернуть ошибку
+            return view('other', ['error' => 'Недействительный IP-адрес']);
+        }
 
         return view('other', ['ipInfo' => $data]);
     }
-    
 }
